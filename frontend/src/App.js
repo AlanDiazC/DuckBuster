@@ -54,14 +54,35 @@ class Duckbuster extends React.Component{
     }
   }
 
+  async comunica(info){
+    //Consumir servicio POST
+    const respuesta = await fetch('http://localhost:8080/peli',{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json'
+      },
+      body: JSON.stringify({
+        mensaje: "Enviando JSON"
+      })
+    })
+    //Lo que responde el servidor
+    const data = await respuesta.json();
+    console.log(data)
+  }
+
   componentDidMount(){
+    //Consumiendo servcio GET
     fetch('http://localhost:8080/pelis')
       .then(res=>res.json())
-      .then(datos=>{
-        console.log(datos)
-        this.setState({
-          datos
+        .then(datos=>{
+          //console.log(datos)
+          this.setState({
+            datos
         })
+      })
+      .catch(err=>{
+        console.log("Servidor desconectado")
+        console.log(err)
       })
   }
   
@@ -69,7 +90,8 @@ class Duckbuster extends React.Component{
     console.log(this.state)
     return(
       <div className="Duckbuster">
-        <h1>Peliculas</h1>
+        <h1>Duckbusters</h1>
+        <button type="button" onClick={this.comunica.bind(this,"hola")}>Consume POST</button>
       </div>
     );
   }
@@ -98,7 +120,6 @@ function App() {
         <Route path="/peliculas" element={<Peliculas/>}></Route>
         <Route path="*" element={<Error404/>}></Route>
       </Routes>
-      <Duckbuster/>
     </div>
   );
 }

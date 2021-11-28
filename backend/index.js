@@ -24,6 +24,13 @@ app.get('/pelis', (req,res)=>{
   })
 })
 
+app.post('/peli',(req,res)=>{
+  console.log(req.body)
+  res.json({
+    mensaje:"Post realizado con exito, Hola!"
+  })
+})
+
 app.listen(8080, () => {
   console.log("Servidor online en el puerto 8080");
 });
