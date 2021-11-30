@@ -16,10 +16,12 @@ const Catalogo = mongoose.Schema({
   cantidad: {
     type: Number,
     alloNull: false,
+    default: 0,
   },
   vendidos: {
     type: Number,
     alloNull: false,
+    default: 0,
   },
 });
 

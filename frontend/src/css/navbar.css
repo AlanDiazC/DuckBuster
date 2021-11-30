@@ -1,0 +1,37 @@
+.nav {
+  /* #f6f5f7 */
+  background-color: #1a232f;
+  top: 0;
+  left: 0;
+  width: 100%;
+  border-bottom: 2px solid #343a4023;
+  display: inline-block;
+  position: relative;
+  z-index: 20;
+  vertical-align: middle;
+}
+
+.navTexto {
+  height: 100%;
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 30px;
+  margin-top: -120px;
+}
+.navTexto a {
+  padding: 30px;
+  text-decoration: none;
+  color: #707070 !important;
+}
+
+.navLogo {
+  display: inline-block;
+  margin-top: 5px;
+  width: 10%;
+}
+.navPerfil {
+  display: inline-block;
+  margin-top: 5px;
+  width: 5%;
+  margin-left: 10%;
+}

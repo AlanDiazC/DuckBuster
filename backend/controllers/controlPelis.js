@@ -4,11 +4,19 @@ const Peliculas = require("../models/peliculas.js");
 const Catalogo = require("../models/catalogo.js");
 
 exports.getCatalogo = async (req, res) => {
-  Catalogo.find({}, function (err, catlg) {
-    Peliculas.populate(catlg, { path: "idPeli" }, function (err, catlg) {
-      res.status(200).json(catlg);
-    });
-  });
+  // Catalogo.find({}, function (err, catlg) {
+  //   Peliculas.populate(catlg, { path: "idPeli" }, function (err, catlg) {
+  //     console.log(catlg);
+  //     res.send(catlg);
+  //   });
+  // });
+  const catalogo = await Catalogo.find({});
+  res.send(catalogo);
+};
+
+exports.getPeliculas = async (req, res) => {
+  const peliculas = await Peliculas.find({});
+  res.send(peliculas);
 };
 
 exports.postPelicula = async (req, res) => {
@@ -31,38 +39,39 @@ exports.postPelicula = async (req, res) => {
     .catch((err) => res.json(err));
 };
 
-exports.postVerDatosPelicula = async (req, res) => {
-  Peliculas.find({}, function (err, pelis) {
-    res.status(200).json(pelis);
-  });
+exports.verDatosPelicula = async (req, res) => {
+  const pelis = await Peliculas.findOne({ _id: req.params.id });
+  res.send(pelis);
 };
 
 exports.postModificarPelicula = async (req, res) => {
-  if (req.body.nombreNuevo == null) {
+  if (req.body.nombreNuevo == "") {
     req.body.nombreNuevo = req.body.nombre;
   }
-  if (req.body.generoNuevo == null) {
+  if (req.body.generoNuevo == "") {
     req.body.generoNuevo = req.body.genero;
   }
-  if (req.body.añoNuevo == null) {
-    req.body.añoNuevo = req.body.año;
+  if (req.body.dirNuevo == "") {
+    req.body.dirNuevo = req.body.director;
   }
 
   Peliculas.updateOne(
     {
       nombre: req.body.nombre,
       genero: req.body.genero,
-      año: req.body.año,
+      director: req.body.director,
     },
     {
       $set: {
         nombre: req.body.nombreNuevo,
         genero: req.body.generoNuevo,
+        director: req.body.dirNuevo,
         año: req.body.añoNuevo,
+        linkTrailer: req.body.linkNuevo,
       },
     }
   )
-    .then(res.status(200).json({ estado: "aceptado" }))
+    .then(console.log({ estado: "aceptado" }))
     .catch((err) => res.json(err));
 };
 
@@ -70,21 +79,48 @@ exports.postBorrarPelicula = async (req, res) => {
   const pelis = Peliculas.find({
     nombre: req.body.nombre,
     genero: req.body.genero,
-    año: req.body.año,
+    director: req.body.director,
   });
-  Peliculas.deleteOne({
-    nombre: req.body.nombre,
-    genero: req.body.genero,
-    año: req.body.año,
+  Catalogo.deleteOne({
+    _idPeli: pelis._id,
   })
     .then(() => {
-      Catalogo.deleteOne({
-        _idPeli: pelis._id,
+      Peliculas.deleteOne({
+        nombre: req.body.nombre,
+        genero: req.body.genero,
+        director: req.body.director,
       })
         .then(() => {
           res.status(200).json({ estado: "aceptado" });
+          console.log("borrado");
         })
         .catch((err) => res.json(err));
     })
     .catch((err) => res.json(err));
+};
+
+exports.postModificarInventario = async (req, res) => {
+  const pelis = await Peliculas.findOne({
+    nombre: req.body.nombre,
+    genero: req.body.genero,
+    director: req.body.director,
+  });
+  const idPeli = pelis._id.toString();
+  Catalogo.updateOne(
+    {
+      idPeli: idPeli,
+    },
+    {
+      $set: {
+        cantidad: req.body.cantidad,
+        vendidos: req.body.vendidos,
+      },
+    }
+  )
+    .then(console.log({ estado: "aceptado" }))
+    .catch((err) => res.json(err));
+};
+
+exports.borrarTodo = async (req, res) => {
+  Peliculas.deleteMany().then(res.json({ estado: "borrado" }));
 };

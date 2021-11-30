@@ -1,0 +1,83 @@
+body {
+  background-color: #0f171f;
+  color: #707070;
+}
+
+.btn {
+  text-decoration: none;
+  background-color: #257aab;
+  color: white !important;
+  border: none !important;
+  padding: 10px;
+}
+.btnVer {
+  margin-left: 15px;
+  font-size: 30px;
+}
+
+.btnForm {
+  background-color: #257aab;
+  color: white !important;
+  border: none !important;
+  padding: 15px;
+  font-size: 30px;
+  cursor: pointer;
+  width: 20vw;
+}
+.lista {
+  display: inline-block;
+  padding-left: 0;
+}
+
+.textoHomepage {
+  font-size: 25px;
+  padding: 10px;
+  margin: 0;
+}
+.pantalla {
+  margin-left: 4%;
+}
+
+.titulo {
+  font-size: 50px;
+}
+
+.filaInput {
+  display: inline-block;
+  margin-right: 50px;
+  margin-bottom: 50px;
+}
+
+.inputForm {
+  width: 15vw;
+  font-size: 25px;
+  padding: 10px;
+}
+
+.filaInputLink {
+  margin-right: 50px;
+  margin-bottom: 50px;
+  width: 30vw;
+}
+.inputLinkForm {
+  width: 34vw;
+  font-size: 30px;
+  padding: 10px;
+}
+
+.flecha {
+  width: 5%;
+  margin-right: 50px;
+}
+.peliOriginal {
+  padding-top: -200px;
+}
+
+.btnModifPeli {
+  margin-left: 33vw;
+}
+
+.play {
+  width: 8%;
+  padding-right: 15px;
+}
