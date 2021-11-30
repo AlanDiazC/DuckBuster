@@ -47,7 +47,7 @@ class Homepage extends React.Component {
   render() {
     const { inventario, isLoaded, peliculas } = this.state;
     if (!isLoaded) {
-      return <h1>No hay peliculas registradas</h1>;
+      return <h1>No hay películas registradas</h1>;
     } else {
       return (
         <div className="pantalla">
@@ -59,7 +59,7 @@ class Homepage extends React.Component {
                     Cantidad en inventario: {catalogo.cantidad} -
                   </span>
                   <span className="textoHomepage">
-                    Cantidad vendida: {catalogo.vendidos}
+                    Cantidad vendida: {catalogo.vendidos} -
                   </span>
                 </ul>
               </div>
@@ -73,7 +73,7 @@ class Homepage extends React.Component {
                     Nombre: {pelicula.nombre} -
                   </span>
                   <span className="textoHomepage">
-                    Genero: {pelicula.genero} -{" "}
+                    Género: {pelicula.genero} -{" "}
                   </span>
                   <span className="textoHomepage">
                     Director: {pelicula.director}
